@@ -14,6 +14,7 @@ public class Test {
         JTextField textField = new JTextField();
         textField.setPreferredSize(new Dimension(0, 100));
         textField.setEditable(false);
+        textField.setHorizontalAlignment(JTextField.RIGHT);
         frame.add(textField, BorderLayout.NORTH); // Add the text field to the NORTH
 
         // Set the layout for the center to a 3x3 grid
