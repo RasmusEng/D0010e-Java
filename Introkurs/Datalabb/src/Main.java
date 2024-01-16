@@ -6,8 +6,7 @@ public class Main {
         if (!riktigaTriangel.riktigaTriangle(a, b, c)) {
             throw new IllegalArgumentException("Ej sidor på en triangle");
         } else {
-            double area = Area.triangleArea(a, b, c);
-            System.out.println(area);
+            System.out.println(Area.triangleArea(a, b, c));
         }
     }
 }
