@@ -26,23 +26,25 @@ public class LifeLength {
             }
         }
     }
-
     public static int f2(int a0){
         return f1t2(a0, 2);
-    }public static int f4(int a0){
+    }
+    public static int f4(int a0){
         return f1t2(a0, 4);
-    }public static int f8(int a0){
+    }
+    public static int f8(int a0){
         return f1t2(a0, 8);
-    }public static int f16(int a0){
+    }
+    public static int f16(int a0){
         return f1t2(a0, 16);
     }public static int f32(int a0){
         return f1t2(a0, 32);
     }public static int f64(int a0){
         return f1t2(a0, 64);
-    }public static int f128(int a0){
+    }
+    public static int f128(int a0){
         return f1t2(a0, 64);
     }
-
     public static int iteradeF(int a0, int n) {
         for (int i = 0; i < n; i++) {
            a0 = f1(a0);
@@ -65,7 +67,6 @@ public class LifeLength {
         else {
             return 1 + recLifeLength(f1(a0));
         }
-
     }
 }
 
