@@ -1,4 +1,5 @@
 import java.util.*;
+import java.math.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -35,7 +36,7 @@ public class Main {
                         Task4(numbInput(scan));
                         break;
                     case 6:
-                        Task6(numbInput(scan));
+                        Task6();
                         break;
                     case -1:
                         // OM man skriver inte en eller flera bokstäver
@@ -89,8 +90,11 @@ public class Main {
     }
 
     public static void Task1(int a0) {
+        while (a0 > 1) {
         a0 = LifeLength.f1(a0);
-        System.out.println(a0);
+        System.out.print(a0 + "\t");
+        }
+        System.out.println("");
     }
 
     public static void Task2(int a0) {
@@ -122,9 +126,13 @@ public class Main {
         System.out.println("The life length of " + a0 + " is " + steps + ".");
     }
 
-    public static void Task6(int a0) {
-        int steps = LifeLength.recLifeLength(a0);
-        System.out.println("Steg = " + steps);
+    public static void Task6() {
+        for(int i = 1; i <= 15; i++){
+            int rSteps = LifeLength.recLifeLength(i);
+            int iSteps = LifeLength.iterLifeLength(i);
+
+            System.out.println("Iter = " + iSteps + "\t Rec = " + rSteps);
+        }
     }
 
 }
