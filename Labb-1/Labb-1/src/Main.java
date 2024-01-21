@@ -140,7 +140,7 @@ public class Main {
     }
     public static void Task9() {
         double x = 1.5;
-        for(int k = 1; k <= 75000; k++){
+        for(int k = 1; k <= 15; k++){
             Raise.recRaiseHalf(x, k);
             System.out.print("Half = " + Raise.count + "\t");
             Raise.count = -1;

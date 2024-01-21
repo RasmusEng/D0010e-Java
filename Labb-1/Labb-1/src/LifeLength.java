@@ -22,7 +22,8 @@ public class LifeLength {
     }
     public static int f16(int a0){
         return f8(f8(a0));
-    }public static int f32(int a0){
+    }
+    public static int f32(int a0){
         return f16(f16(a0));
     }
     public static int f64(int a0){
