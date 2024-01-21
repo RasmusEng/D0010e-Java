@@ -38,6 +38,9 @@ public class Main {
                     case 6:
                         Task6();
                         break;
+                    case 9:
+                        Task9();
+                        break;
                     case -1:
                         // OM man skriver inte en eller flera bokstäver
                         break;
@@ -45,6 +48,7 @@ public class Main {
                         System.out.println(n + " Är inte en task");
             }
             } catch (EmptyStackException e){
+                // Denna hade varit den custom exceptionen
                 System.out.println("Måste vara ett positivt tal");
                 scan.nextLine();
                 n = -1;
@@ -132,6 +136,17 @@ public class Main {
             int iSteps = LifeLength.iterLifeLength(i);
 
             System.out.println("Iter = " + iSteps + "\t Rec = " + rSteps);
+        }
+    }
+    public static void Task9() {
+        double x = 1.5;
+        for(int k = 1; k <= 75000; k++){
+            Raise.recRaiseHalf(x, k);
+            System.out.print("Half = " + Raise.count + "\t");
+            Raise.count = -1;
+            Raise.recRaiseOne(x, k);
+            System.out.println("One = " + Raise.count);
+            Raise.count = -1;
         }
     }
 

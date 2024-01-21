@@ -11,7 +11,6 @@ public class LifeLength {
             return a0 * 3 + 1;
         }
     }
-
     public static int f2(int a0){
         return f1(f1(a0));
     }
@@ -25,7 +24,8 @@ public class LifeLength {
         return f8(f8(a0));
     }public static int f32(int a0){
         return f16(f16(a0));
-    }public static int f64(int a0){
+    }
+    public static int f64(int a0){
         return f32(f32(a0));
     }
     public static int f128(int a0){
