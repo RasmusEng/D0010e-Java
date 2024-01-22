@@ -21,4 +21,14 @@ public class Raise {
         }
     }
 
+    public static double iterRaise(double x, int k){
+        int lCount = 0; // Lokal count för antalet loop varv
+        double res = 1.0;
+        while(lCount < k){
+            res = res* x;
+            lCount++;
+        }
+        return lCount;
+    }
+
 }

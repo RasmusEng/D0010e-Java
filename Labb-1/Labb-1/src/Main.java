@@ -140,13 +140,14 @@ public class Main {
     }
     public static void Task9() {
         double x = 1.5;
-        for(int k = 1; k <= 15; k++){
+        for(int k = 1; k <= 70000; k++){
             Raise.recRaiseHalf(x, k);
             System.out.print("Half = " + Raise.count + "\t");
             Raise.count = -1;
             Raise.recRaiseOne(x, k);
-            System.out.println("One = " + Raise.count);
+            System.out.print("One = " + Raise.count + "\t");
             Raise.count = -1;
+            System.out.println("Iter = " + Raise.iterRaise(x, k));
         }
     }
 
