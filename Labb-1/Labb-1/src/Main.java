@@ -62,7 +62,7 @@ public class Main {
         scan.close();
     }
 
-    public static int numbInput(Scanner scan) {
+    private static int numbInput(Scanner scan) {
         int a0 = 0;
         // Tar en input och testar om det är ett heltal som är större eller likamed 0
         System.out.print("Skriv in ett heltal > 0: ");
@@ -75,7 +75,7 @@ public class Main {
         return a0;
 
     }
-    public static List<Integer> twoNumbInput(Scanner scan) {
+    private static List<Integer> twoNumbInput(Scanner scan) {
         int a0 = 0;
         int n = 0;
         // Tar en input och testar om det är ett heltal som är större eller likamed 0
@@ -93,7 +93,7 @@ public class Main {
         return an;
     }
 
-    public static void Task1(int a0) {
+    private static void Task1(int a0) {
         while (a0 > 1) {
         a0 = LifeLength.f1(a0);
         System.out.print(a0 + "\t");
@@ -101,7 +101,7 @@ public class Main {
         System.out.println("");
     }
 
-    public static void Task2(int a0) {
+    private static void Task2(int a0) {
         int f1 = LifeLength.f1(a0);
         int f2 = LifeLength.f2(a0);
         int f4 = LifeLength.f4(a0);
@@ -120,17 +120,17 @@ public class Main {
         System.out.println("f128=" + f128);
     }
 
-    public static void Task3(int a0, int n) {
+    private static void Task3(int a0, int n) {
         a0 = LifeLength.iteradeF(a0, n);
         System.out.println("Vid steg " + n + " är värdet = " + a0);
     }
 
-    public static void Task4(int a0) {
+    private static void Task4(int a0) {
         int steps = LifeLength.iterLifeLength(a0);
         System.out.println("The life length of " + a0 + " is " + steps + ".");
     }
 
-    public static void Task6() {
+    private static void Task6() {
         for(int i = 1; i <= 15; i++){
             int rSteps = LifeLength.recLifeLength(i);
             int iSteps = LifeLength.iterLifeLength(i);
@@ -138,16 +138,18 @@ public class Main {
             System.out.println("Iter = " + iSteps + "\t Rec = " + rSteps);
         }
     }
-    public static void Task9() {
-        double x = 1.5;
-        for(int k = 1; k <= 70000; k++){
-            Raise.recRaiseHalf(x, k);
-            System.out.print("Half = " + Raise.count + "\t");
+    private static void Task9() {
+        double x = 1.0005;
+
+        for(int k = 1; k <= 75000; k++){
+           Raise.recRaiseHalf(x, k);
+            System.out.print(k+ "\t");
+            System.out.print(Raise.count + "\t");
             Raise.count = -1;
             Raise.recRaiseOne(x, k);
-            System.out.print("One = " + Raise.count + "\t");
+            System.out.println(Raise.count);
             Raise.count = -1;
-            System.out.println("Iter = " + Raise.iterRaise(x, k));
+            //System.out.println("Iter = " + Raise.iterRaise(x, k));
         }
     }
 
