@@ -30,5 +30,14 @@ public class Raise {
         // Metoden kommer köras 1 gång men loopen kommer köras linjärt med antal k
         return res;
     }
+    public static double iterRaise2(double x, int k){
+        // Samma metod som åvan men med for loop
+        double res = 1.0;
+        for(int j = 0; j <= k; j++){
+            res = res * x;
+        }
+        // Metoden kommer köras 1 gång men loopen kommer köras linjärt med antal k
+        return res;
+    }
 
 }
