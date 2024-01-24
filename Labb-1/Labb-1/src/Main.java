@@ -7,15 +7,16 @@ public class Main {
         Scanner scan = new Scanner(System.in);
         int n = -1;
         while (n != 0) {
-            // Tar en input och testar om det är ett heltal som är större eller likamed 0
+            // Tar en input och lagrar svaret i n
             try {
-                System.out.print("Skriv in ett av heltalen {1,2,3,4,6}, skriv 0 för att avsluta: ");
-                n = scan.nextInt();
+                System.out.print("Skriv in ett av heltalen {1,2,3,4,6,9}, skriv 0 för att avsluta: ");
+                n = scan.nextInt();   // Om n inte kan "intas" får vi ett felmedelande som vi fångar
             } catch (Exception e) {
                 System.out.println("Fel: Ej inte en task");
                 scan.nextLine();
                 n = -1;
             }
+
             try{
                 switch (n) {
                     case 0:
@@ -43,16 +44,20 @@ public class Main {
                         break;
                     case -1:
                         // OM man skriver inte en eller flera bokstäver
+                        // om man intar en bokstav blir värdet på n = -1
                         break;
                     default:
                         System.out.println(n + " Är inte en task");
-            }
+                }
             } catch (EmptyStackException e){
-                // Denna hade varit den custom exceptionen
+                // För numbInput och twoNumbInput
+                // Får detta om det är ett negativt tal
+                // Skulle kunna vara en custom exception
                 System.out.println("Måste vara ett positivt tal");
                 scan.nextLine();
                 n = -1;
             }catch (Exception e){
+                // Om man skriver in en bokstav numbInput eller twoNumbInput
                 System.out.println("Inte ett giltigt tal");
                 scan.nextLine();
                 n = -1;
@@ -68,8 +73,7 @@ public class Main {
         System.out.print("Skriv in ett heltal > 0: ");
         a0 = scan.nextInt();
         if(a0 <= 0){
-            // Skulle vilja skapa en egen exception, men behöver en till call isåfall
-            // som ärver exception
+            // Skulle vilja skapa en egen exception, men behöver en till call isåfall som ärver exception
             throw new EmptyStackException();
         }
         return a0;
@@ -85,7 +89,7 @@ public class Main {
 
         System.out.print("Skriv in antal steg: ");
         n = scan.nextInt();
-        if(a0 <= 0){
+        if(a0 <= 0 || n <= 0){ // För ett negativt tal
             throw new InputMismatchException();
         }
         an.add(a0);
@@ -94,6 +98,7 @@ public class Main {
     }
 
     private static void Task1(int a0) {
+        // Skriver ut tal till och med att det blir en 1:a
         while (a0 > 1) {
         a0 = LifeLength.f1(a0);
         System.out.print(a0 + "\t");
