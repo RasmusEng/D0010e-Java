@@ -47,6 +47,10 @@ public class LifeLength {
         return count;
     }
 
+    public static String intsToString(int a0, int steps){
+        return "The life length of " + a0 + " is " + steps + ".";
+    }
+
     public static int recLifeLength(int a0){
         if (a0 <= 1){
             return 0;

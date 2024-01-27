@@ -16,51 +16,49 @@ public class Main {
                 scan.nextLine();
                 n = -1;
             }
-
-            try{
-                switch (n) {
-                    case 0:
-                        System.out.println("Programmet avslutas");
-                        break;
-                    case 1:
-                        Task1(numbInput(scan));
-                        break;
-                    case 2:
-                        Task2(numbInput(scan));
-                        break;
-                    case 3:
-                        List<Integer> returns = new ArrayList<>();
-                        returns = twoNumbInput(scan);
-                        Task3(returns.get(0), returns.get(1));
-                        break;
-                    case 4:
-                        Task4(numbInput(scan));
-                        break;
-                    case 6:
-                        Task6();
-                        break;
-                    case 9:
-                        Task9();
-                        break;
-                    case -1:
-                        // OM man skriver inte en eller flera bokstäver
-                        // om man intar en bokstav blir värdet på n = -1
-                        break;
-                    default:
-                        System.out.println(n + " Är inte en task");
+            while (true){
+                try {
+                    switch (n) {
+                        case 0:
+                            System.out.println("Programmet avslutas");
+                            throw new NullPointerException();
+                        case 1:
+                            Task1(numbInput(scan));
+                            break;
+                        case 2:
+                            Task2(numbInput(scan));
+                            break;
+                        case 3:
+                            List<Integer> returns = new ArrayList<>();
+                            // Får tillbaka värderna från listan
+                            returns = twoNumbInput(scan);
+                            Task3(returns.get(0), returns.get(1));
+                            break;
+                        case 4:
+                            Task4();
+                            throw new NullPointerException();
+                        case 6:
+                            Task6();
+                            throw new NullPointerException();
+                        case 9:
+                            Task9();
+                            throw new NullPointerException();
+                        case -1:
+                            // OM man skriver inte en eller flera bokstäver
+                            // om man intar en bokstav blir värdet på n = -1
+                            break;
+                        default:
+                            System.out.println(n + " Är inte en task");
+                    }
+                }catch (NullPointerException e){
+                    break;
+                }catch (EmptyStackException e){
+                    System.out.println("Inte ett positivt tal");
+                    scan.nextLine();
+                } catch (Exception e){
+                    System.out.println("Inte ett giltigt tal");
+                    scan.nextLine();
                 }
-            } catch (EmptyStackException e){
-                // För numbInput och twoNumbInput
-                // Får detta om det är ett negativt tal
-                // Skulle kunna vara en custom exception
-                System.out.println("Måste vara ett positivt tal");
-                scan.nextLine();
-                n = -1;
-            }catch (Exception e){
-                // Om man skriver in en bokstav numbInput eller twoNumbInput
-                System.out.println("Inte ett giltigt tal");
-                scan.nextLine();
-                n = -1;
             }
 
         }
@@ -72,9 +70,13 @@ public class Main {
         // Tar en input och testar om det är ett heltal som är större eller likamed 0
         System.out.print("Skriv in ett heltal > 0: ");
         a0 = scan.nextInt();
-        if(a0 <= 0){
+        if(a0 < 0){
             // Skulle vilja skapa en egen exception, men behöver en till call isåfall som ärver exception
             throw new EmptyStackException();
+        }
+        if(a0 == 0){
+            // Skulle vilja skapa en egen exception, men behöver en till call isåfall som ärver exception
+            throw new NullPointerException();
         }
         return a0;
 
@@ -89,8 +91,12 @@ public class Main {
 
         System.out.print("Skriv in antal steg: ");
         n = scan.nextInt();
-        if(a0 <= 0 || n <= 0){ // För ett negativt tal
-            throw new InputMismatchException();
+        if(a0 < 0 || n < 0){ // För ett negativt tal
+            throw new NullPointerException();
+        }
+        if(a0 == 0 || n == 0){
+            // Skulle vilja skapa en egen exception, men behöver en till call isåfall som ärver exception
+            throw new NullPointerException();
         }
         an.add(a0);
         an.add(n);
@@ -99,11 +105,8 @@ public class Main {
 
     private static void Task1(int a0) {
         // Skriver ut tal till och med att det blir en 1:a
-        while (a0 > 1) {
         a0 = LifeLength.f1(a0);
-        System.out.print(a0 + "\t");
-        }
-        System.out.println("");
+        System.out.println(a0);
     }
 
     private static void Task2(int a0) {
@@ -130,9 +133,11 @@ public class Main {
         System.out.println("Vid steg " + n + " är värdet = " + a0);
     }
 
-    private static void Task4(int a0) {
-        int steps = LifeLength.iterLifeLength(a0);
-        System.out.println("The life length of " + a0 + " is " + steps + ".");
+    private static void Task4() {
+        for(int i = 1; i <= 15; i++){
+            int steps = LifeLength.iterLifeLength(i);
+            System.out.println(LifeLength.intsToString(i, steps));
+        }
     }
 
     private static void Task6() {
@@ -146,9 +151,10 @@ public class Main {
     private static void Task9() {
         double x = 1.0005;
 
-        for(int k = 1; k <= 75000; k++){
-           Raise.recRaiseHalf(x, k);
-            System.out.print(k+ "\t");
+        for(int k = 1; k <= 100000; k++){
+            //System.out.print(Raise.recRaiseHalf(x, k) + "\t");
+            //System.out.print(k+ "\t");
+            Raise.recRaiseHalf(x, k);
             System.out.print(Raise.count + "\t");
             Raise.count = -1;
             Raise.recRaiseOne(x, k);
