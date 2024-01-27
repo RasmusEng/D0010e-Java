@@ -49,6 +49,7 @@ public class Main {
                             break;
                         default:
                             System.out.println(n + " Är inte en task");
+                            throw new NullPointerException();
                     }
                 }catch (NullPointerException e){
                     break;
