@@ -11,7 +11,7 @@ public class MyArrayListTest {
         try {
             data = new MyArrayList<Integer>(-1);
         } catch (IllegalArgumentException e) {
-// fungerar; det ska bli IllegalArgumentException
+        // fungerar; det ska bli IllegalArgumentException
         } catch (Exception e) {
             throw new RuntimeException("MyArrayList 1: " + e);
         }
@@ -173,12 +173,12 @@ public class MyArrayListTest {
         System.out.println("Test av toArray() OK");
     }
     public static void main(String[] args) {
-// testAvMyArrayList();
-// testAvSize();
+    testAvMyArrayList();
+// testAvSize();  //
 // testAvIsEmpty();
 // testAvClear();
-// testAvAddindex();
-        testAvAddE();
+// testAvAddindex(); /
+// testAvAddE();
 // testAvGetindex();
 // testAvSetindex();
 // testAvRemoveindex();

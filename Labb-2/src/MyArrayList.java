@@ -1,11 +1,5 @@
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.RandomAccess;
-import java.util.Spliterator;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
@@ -15,21 +9,48 @@ public class MyArrayList<E> implements Serializable, Cloneable, Iterable<E>,
         Collection<E>, List<E>, RandomAccess {
     // ---------------------------------------------------------------
     public static void main(String[] args) {
-        MyArrayList<String> strlist = new MyArrayList<String>();
+        MyArrayList<String> strlist = new MyArrayList<String>(10);
+
+        System.out.println(strlist.size());
+        strlist.add("Hej");
+        strlist.add("Hej");
+        strlist.add("Hej");
+        strlist.add("Hej");
+        strlist.add("Hej");
+        strlist.add("Hej");
+        strlist.add("Hej");
+        strlist.add("Hej");
+        strlist.add("Hej");
+        strlist.add("Hej");
+        strlist.add("Hej");
+        strlist.add("Hej");
+        strlist.add("Hej");
+        strlist.add("Hej");
+        strlist.add("Hej");
+        strlist.add("Hej");
+        System.out.println(strlist.size());
 // testa metoder härifrån
     }
     // ---------------------------------------------------------------
+    private int size;
+    private int added;
+    private E[] array = (E[]) new Object[size];
+
     public MyArrayList(int initialCapacity) {
-        /* ska implementeras */
+        size = initialCapacity;
+        ensureCapacity(size);
+        //array = (E[]) new Object[size];
+
     }
     public MyArrayList() {
-        /* ska implementeras */
+        size = 0;
+        //array = (E[]) new Object[size];
+
     }
     // -- 1 --
     @Override
     public int size() {
-        /* ska implementeras */
-        return -1; /* bara med för att Eclipse inte ska klaga */
+        return array.length; /* bara med för att Eclipse inte ska klaga */
     }
     @Override
     public boolean isEmpty() {
@@ -42,19 +63,21 @@ public class MyArrayList<E> implements Serializable, Cloneable, Iterable<E>,
     }
     // -- 2 --
     public void ensureCapacity(int minCapacity) {
-        /* ska implementeras */
+        if (minCapacity > size()) array = Arrays.copyOf(array, minCapacity);
     }
     public void trimToSize() {
-        /* ska implementeras */
+        if(added >= size()) array = Arrays.copyOf(array, size() + 1);
     }
     // -- 3 --
     @Override
     public void add(int index, E element) {
-        /* ska implementeras */
+        trimToSize();
+        array[index] = element;
     }
     @Override
     public boolean add(E e) {
-        /* ska implementeras */
+        trimToSize();
+        array[added++] = e;
         return false; /* bara med för att Eclipse inte ska klaga */
     }
     // -- 4 --
