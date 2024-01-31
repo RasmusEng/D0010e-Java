@@ -12,10 +12,10 @@ public class MyArrayList<E> implements Serializable, Cloneable, Iterable<E>,
         MyArrayList<String> strlist = new MyArrayList<String>(10);
 
         System.out.println(strlist.size());
-        strlist.add("Hej");
-        strlist.add("Hej");
-        strlist.add("Hej");
-        strlist.add("Hej");
+        strlist.add("Hej0");
+        strlist.add("Hej1");
+        strlist.add("Hej2");
+        strlist.add("Hej3");
         strlist.add("Hej");
         strlist.add("Hej");
         strlist.add("Hej");
@@ -29,6 +29,18 @@ public class MyArrayList<E> implements Serializable, Cloneable, Iterable<E>,
         strlist.add("Hej");
         strlist.add("Hej");
         System.out.println(strlist.size());
+        System.out.println();
+        //strlist.clear();
+        strlist.add(2, "tjohej");
+        System.out.println(strlist.get(2));
+        System.out.println(strlist.get(1));
+        System.out.println(strlist.get(3));
+        System.out.println(strlist.size());
+        System.out.println(strlist.isEmpty());
+        strlist.trimToSize();
+        System.out.println(strlist.size());
+        System.out.println(strlist.clone());
+
 // testa metoder härifrån
     }
     // ---------------------------------------------------------------
@@ -43,61 +55,80 @@ public class MyArrayList<E> implements Serializable, Cloneable, Iterable<E>,
 
     }
     public MyArrayList() {
-        size = 0;
+        size = 10;
         //array = (E[]) new Object[size];
-
     }
     // -- 1 --
     @Override
     public int size() {
-        return array.length; /* bara med för att Eclipse inte ska klaga */
+        return array.length;
     }
     @Override
     public boolean isEmpty() {
-        /* ska implementeras */
-        return false; /* bara med för att Eclipse inte ska klaga */
+        return array.length == 0;
     }
     @Override
     public void clear() {
-        for(int i = 0; i <= size(); i++){
-            // :/
+        for(int i = 0; i < size(); i++ ){
+            array[i] = null;
         }
+        added = 0;
+        size = 0;
     }
     // -- 2 --
     public void ensureCapacity(int minCapacity) {
-        if (minCapacity > size()) array = Arrays.copyOf(array, minCapacity);
+       // if (minCapacity > size()) array = Arrays.copyOf(array, minCapacity);
+        if (minCapacity > size())
+        {
+            size = minCapacity;
+            E[] newArray = (E[]) new Object[size];
+            for(int i = 0; i < added; i++){
+                newArray[i] = array[i];
+            }
+            array = newArray;
+        }
+
     }
     public void trimToSize() {
-        if(added >= size()) array = Arrays.copyOf(array, size() + 1);
+        //if(added >= size()) array = Arrays.copyOf(array, size() + 1);
+        if(size != size())
+        {
+            E[] newArray = (E[]) new Object[added];
+            for(int i = 0; i < added; i++){
+                newArray[i] = array[i];
+            }
+            array = newArray;
+        }
     }
     // -- 3 --
     @Override
     public void add(int index, E element) {
-        trimToSize();
+        ensureCapacity(added++);
+        for(int i = index+1; i < size(); i++){
+            array[i] = array[i-1];
+        }
         array[index] = element;
     }
     @Override
     public boolean add(E e) {
-        trimToSize();
+        ensureCapacity(added + 1);
         array[added++] = e;
-        return false; /* bara med för att Eclipse inte ska klaga */
+        return false;
     }
     // -- 4 --
     @Override
     public E get(int index) {
-        /* ska implementeras */
-        return null; /* bara med för att Eclipse inte ska klaga */
+        return array[index];
     }
     @Override
     public E set(int index, E element) {
-        /* ska implementeras */
-        return null; /* bara med för att Eclipse inte ska klaga */
+        trimToSize();
+        return array[index] = element;
     }
     // -- 5 --
     @Override
     public E remove(int index) {
-        /* ska implementeras */
-        return null; /* bara med för att Eclipse inte ska klaga */
+        return array[index] = null;
     }
     protected void removeRange(int fromIndex, int toIndex) {
         /* ska implementeras */
@@ -121,8 +152,8 @@ public class MyArrayList<E> implements Serializable, Cloneable, Iterable<E>,
     // -- 7 --
     @Override
     public Object clone() {
-        /* ska implementeras */
-        return null; /* bara med för att Eclipse inte ska klaga */
+        E[] arrayCopy = Arrays.copyOf(array, size());
+        return arrayCopy; /* bara med för att Eclipse inte ska klaga */
     }
     @Override
     public Object[] toArray() {
