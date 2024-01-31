@@ -131,7 +131,23 @@ public class MyArrayList<E> implements Serializable, Cloneable, Iterable<E>,
         return array[index] = null;
     }
     protected void removeRange(int fromIndex, int toIndex) {
-        /* ska implementeras */
+        if(toIndex <= size()){
+            for(int i = fromIndex; i < toIndex; i++){
+                added--;
+                array[i] = null;
+            }
+            E[] newArray = (E[]) new Object[added];
+            int count = 0; // Håller reda på vilket index den ska lägga in i den nya arrayen
+            for(int i = 0; i < size(); i++){
+                if (array[i] != null){
+                    newArray[count] = array[i];
+                    count++;
+                }
+            }
+            array = newArray;
+        }else {
+            throw new IndexOutOfBoundsException();
+        }
     }
     // -- 6 --
     @Override
@@ -152,8 +168,9 @@ public class MyArrayList<E> implements Serializable, Cloneable, Iterable<E>,
     // -- 7 --
     @Override
     public Object clone() {
-        E[] arrayCopy = Arrays.copyOf(array, size());
-        return arrayCopy; /* bara med för att Eclipse inte ska klaga */
+        E[] arrayClone;
+        arrayClone = array;
+        return arrayClone; /* bara med för att Eclipse inte ska klaga */
     }
     @Override
     public Object[] toArray() {

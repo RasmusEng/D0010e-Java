@@ -182,11 +182,11 @@ public class MyArrayListTest {
     testAvGetindex();
     testAvSetindex();
 //  testAvRemoveindex();
-//  testAvRemoveRange();
+    testAvRemoveRange();
 //  testAvIndexOf();
 //  testAvRemoveobject();
 //  testAvContainsobject();
-//  testAvClone();
+    testAvClone();
 //  testAvToArray();
     }
 }
