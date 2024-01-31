@@ -59,7 +59,9 @@ public class MyArrayList<E> implements Serializable, Cloneable, Iterable<E>,
     }
     @Override
     public void clear() {
-        /* ska implementeras */
+        for(int i = 0; i <= size(); i++){
+            // :/
+        }
     }
     // -- 2 --
     public void ensureCapacity(int minCapacity) {
