@@ -11,36 +11,6 @@ public class MyArrayList<E> implements Serializable, Cloneable, Iterable<E>,
     // ---------------------------------------------------------------
     public static void main(String[] args) {
         MyArrayList<String> strlist = new MyArrayList<String>(10);
-
-        System.out.println(strlist.size());
-        strlist.add("Hej0");
-        strlist.add("Hej1");
-        strlist.add("Hej2");
-        strlist.add("Hej3");
-        strlist.add("Hej");
-        strlist.add("Hej");
-        strlist.add("Hej");
-        strlist.add("Hej");
-        strlist.add("Hej");
-        strlist.add("Hej");
-        strlist.add("Hej");
-        strlist.add("Hej");
-        strlist.add("Hej");
-        strlist.add("Hej");
-        strlist.add("Hej");
-        strlist.add("Hej");
-        System.out.println(strlist.size());
-        strlist.clear();
-        strlist.add(2, "tjohej");
-        System.out.println(strlist.get(2));
-        System.out.println(strlist.get(1));
-        System.out.println(strlist.get(3));
-        System.out.println(strlist.size());
-        System.out.println(strlist.isEmpty());
-        strlist.trimToSize();
-        System.out.println(strlist.size());
-        System.out.println(strlist.clone());
-
 // testa metoder härifrån
     }
     // ---------------------------------------------------------------
@@ -91,7 +61,7 @@ public class MyArrayList<E> implements Serializable, Cloneable, Iterable<E>,
     }
     public void trimToSize() {
         // if(added >= size()) array = Arrays.copyOf(array, size() + 1);
-        if(size != array.length) 
+        if(size != array.length)
         {
             E[] newArray = (E[]) new Object[added];
             for(int i = 0; i < added; i++){
