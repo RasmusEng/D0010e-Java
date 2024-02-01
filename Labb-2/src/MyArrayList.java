@@ -12,6 +12,7 @@ public class MyArrayList<E> implements Serializable, Cloneable, Iterable<E>,
     public static void main(String[] args) {
         MyArrayList<String> strlist = new MyArrayList<String>(10);
 // testa metoder härifrån
+        // hejasna
     }
     // ---------------------------------------------------------------
     private int size;
