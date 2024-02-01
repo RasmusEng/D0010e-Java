@@ -15,7 +15,7 @@ public class MyArrayListTest {
         } catch (Exception e) {
             throw new RuntimeException("MyArrayList 1: " + e);
         }
-        data = new MyArrayList<Integer>();
+              data = new MyArrayList<Integer>();
         int N = 10;
         try {
             insert(N);

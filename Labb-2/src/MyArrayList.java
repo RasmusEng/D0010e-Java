@@ -1,3 +1,5 @@
+import com.sun.corba.se.impl.protocol.giopmsgheaders.TargetAddress;
+
 import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.*;
@@ -12,27 +14,24 @@ public class MyArrayList<E> implements Serializable, Cloneable, Iterable<E>,
     public static void main(String[] args) {
         MyArrayList<String> strlist = new MyArrayList<String>(10);
 // testa metoder härifrån
-        // hejasna
     }
     // ---------------------------------------------------------------
     private int size;
-    private int added;
-    private E[] array = (E[]) new Object[size];
+    private E[] array;
 
     public MyArrayList(int initialCapacity) {
-        size = initialCapacity;
-        ensureCapacity(size);
-        //array = (E[]) new Object[size];
-
+        if (initialCapacity < 0){
+            throw new IllegalArgumentException();
+        }
+        array = (E[]) new Object[initialCapacity];
     }
     public MyArrayList() {
-        size = 10;
-        //array = (E[]) new Object[size];
+        array = (E[]) new Object[10];
     }
     // -- 1 --
     @Override
     public int size() {
-        return added;
+        return size;
     }
     @Override
     public boolean isEmpty() {
@@ -40,20 +39,14 @@ public class MyArrayList<E> implements Serializable, Cloneable, Iterable<E>,
     }
     @Override
     public void clear() {
-        for(int i = 0; i < array.length; i++ ){
-            array[i] = null;
-        }
-        added = 0;
-        size = 0;
+        size = 0; // Sätter size till 0, vilket gör att resterade element kommer skrivas över när vi lägger till nya
     }
     // -- 2 --
     public void ensureCapacity(int minCapacity) {
-       // if (minCapacity > size()) array = Arrays.copyOf(array, minCapacity);
-        if (minCapacity > size())
+        if (minCapacity > array.length)
         {
-            size = minCapacity;
-            E[] newArray = (E[]) new Object[size];
-            for(int i = 0; i < added; i++){
+            E[] newArray = (E[]) new Object[minCapacity];
+            for(int i = 0; i < size; i++){
                 newArray[i] = array[i];
             }
             array = newArray;
@@ -64,8 +57,8 @@ public class MyArrayList<E> implements Serializable, Cloneable, Iterable<E>,
         // if(added >= size()) array = Arrays.copyOf(array, size() + 1);
         if(size != array.length)
         {
-            E[] newArray = (E[]) new Object[added];
-            for(int i = 0; i < added; i++){
+            E[] newArray = (E[]) new Object[size];
+            for(int i = 0; i < size; i++){
                 newArray[i] = array[i];
             }
             array = newArray;
@@ -74,7 +67,10 @@ public class MyArrayList<E> implements Serializable, Cloneable, Iterable<E>,
     // -- 3 --
     @Override
     public void add(int index, E element) {
-        ensureCapacity(added++);
+        ensureCapacity(size+ 1); // Kolla om index stämmer
+        if(index > size || index <0){
+            throw new IndexOutOfBoundsException();
+        }
         for(int i = index+1; i < array.length; i++){
             array[i] = array[i-1];
         }
@@ -82,26 +78,35 @@ public class MyArrayList<E> implements Serializable, Cloneable, Iterable<E>,
     }
     @Override
     public boolean add(E e) {
-        ensureCapacity(added + 1);
-        array[added++] = e;
+        add(size++, e);
         return false;
     }
     // -- 4 --
     @Override
     public E get(int index) {
+        if(index > size || index < 0){
+            throw new IndexOutOfBoundsException();
+        }
         return array[index];
     }
     @Override
     public E set(int index, E element) {
-        trimToSize();
+        if(index > size || index < 0){
+            throw new IndexOutOfBoundsException();
+        }
         return array[index] = element;
     }
     // -- 5 --
     @Override
     public E remove(int index) {
-        E[] newArray = (E[]) new Object[added--];
+        if(index > size || index < 0){
+            throw new IndexOutOfBoundsException();
+        }
+
+        E[] newArray = (E[]) new Object[size--];
         E oldVal = array[index];
         array[index] = null;
+
         for(int i = 0; i < size(); i++){
             if(i != index){
                 newArray[i] = array[i];
@@ -111,24 +116,26 @@ public class MyArrayList<E> implements Serializable, Cloneable, Iterable<E>,
         return oldVal;
     }
     protected void removeRange(int fromIndex, int toIndex) {
-        if(toIndex <= array.length){
-            for(int i = fromIndex; i < toIndex; i++){
-                added--;
-                array[i] = null;
-            }
-            E[] newArray = (E[]) new Object[added];
-            int count = 0; // Håller reda på vilket index den ska lägga in i den nya arrayen
-            for(int i = 0; i < toIndex; i++){
-                if (array[i] != null){
-                    newArray[count] = array[i];
-                    count++;
-                }
-            }
-            array = newArray;
-        }else {
+        if(fromIndex < 0 || fromIndex >= size|| toIndex > size || toIndex < fromIndex){
             throw new IndexOutOfBoundsException();
         }
-    }
+        if(fromIndex == toIndex){
+            return;
+        }
+        for(int i = fromIndex; i < toIndex; i++){
+            size--;
+            array[i] = null;
+        }
+        E[] newArray = (E[]) new Object[size];
+        int count = 0; // Håller reda på vilket index den ska lägga in i den nya arrayen
+        for(int i = 0; i < toIndex; i++){
+            if (array[i] != null){
+                newArray[count] = array[i];
+                count++;
+            }
+        }
+        array = newArray;
+        }
     // -- 6 --
     @Override
     public int indexOf(Object o) {
@@ -141,20 +148,16 @@ public class MyArrayList<E> implements Serializable, Cloneable, Iterable<E>,
     }
     @Override
     public boolean remove(Object o) {
-        for(int i = 0; i < array.length; i++){
-            if(o == array[i]){
-                remove(i);
-                return true;
-            }
+        if(indexOf(o) != -1){
+            remove(indexOf(o));
+            return true;
         }
         return false;
     }
     @Override
     public boolean contains(Object o) {
-        for(int i = 0; i < array.length; i++){
-            if(o == array[i]){
-                return true;
-            }
+        if (indexOf(o) != -1){
+            return true;
         }
         return false;
     }
@@ -162,15 +165,13 @@ public class MyArrayList<E> implements Serializable, Cloneable, Iterable<E>,
     @Override
     public Object clone() {
         MyArrayList<E> clone = new MyArrayList<E>(array.length);
-        for(int i = 0; i < size; i++){
-            clone.add(array[i]);
-        }
+        clone.array = array;
         return clone; // En shallow kopia, alltså samma längd
     }
     @Override
     public Object[] toArray() {
         E[] newArray = (E[]) new Object[size];
-        for(int i = 0; i < array.length; i++){
+        for(int i = 0; i < size; i++){
              newArray[i] = array[i];
         }
         return newArray; /* bara med för att Eclipse inte ska klaga */
