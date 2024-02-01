@@ -174,19 +174,19 @@ public class MyArrayListTest {
     }
     public static void main(String[] args) {
     testAvMyArrayList();
-    testAvSize();  //
+    testAvSize();
     testAvIsEmpty();
     testAvClear();
-//  testAvAddindex();
+    testAvAddindex();
     testAvAddE();
     testAvGetindex();
     testAvSetindex();
-//  testAvRemoveindex();
+    testAvRemoveindex();
     testAvRemoveRange();
-//  testAvIndexOf();
-//  testAvRemoveobject();
-//  testAvContainsobject();
+    testAvIndexOf();
+    testAvRemoveobject();
+    testAvContainsobject();
     testAvClone();
-//  testAvToArray();
+    testAvToArray();
     }
 }

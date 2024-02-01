@@ -1,4 +1,5 @@
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
@@ -29,8 +30,7 @@ public class MyArrayList<E> implements Serializable, Cloneable, Iterable<E>,
         strlist.add("Hej");
         strlist.add("Hej");
         System.out.println(strlist.size());
-        System.out.println();
-        //strlist.clear();
+        strlist.clear();
         strlist.add(2, "tjohej");
         System.out.println(strlist.get(2));
         System.out.println(strlist.get(1));
@@ -61,7 +61,7 @@ public class MyArrayList<E> implements Serializable, Cloneable, Iterable<E>,
     // -- 1 --
     @Override
     public int size() {
-        return array.length;
+        return added;
     }
     @Override
     public boolean isEmpty() {
@@ -69,7 +69,7 @@ public class MyArrayList<E> implements Serializable, Cloneable, Iterable<E>,
     }
     @Override
     public void clear() {
-        for(int i = 0; i < size(); i++ ){
+        for(int i = 0; i < array.length; i++ ){
             array[i] = null;
         }
         added = 0;
@@ -90,8 +90,8 @@ public class MyArrayList<E> implements Serializable, Cloneable, Iterable<E>,
 
     }
     public void trimToSize() {
-        //if(added >= size()) array = Arrays.copyOf(array, size() + 1);
-        if(size != size())
+        // if(added >= size()) array = Arrays.copyOf(array, size() + 1);
+        if(size != array.length) 
         {
             E[] newArray = (E[]) new Object[added];
             for(int i = 0; i < added; i++){
@@ -104,7 +104,7 @@ public class MyArrayList<E> implements Serializable, Cloneable, Iterable<E>,
     @Override
     public void add(int index, E element) {
         ensureCapacity(added++);
-        for(int i = index+1; i < size(); i++){
+        for(int i = index+1; i < array.length; i++){
             array[i] = array[i-1];
         }
         array[index] = element;
@@ -128,17 +128,26 @@ public class MyArrayList<E> implements Serializable, Cloneable, Iterable<E>,
     // -- 5 --
     @Override
     public E remove(int index) {
-        return array[index] = null;
+        E[] newArray = (E[]) new Object[added--];
+        E oldVal = array[index];
+        array[index] = null;
+        for(int i = 0; i < size(); i++){
+            if(i != index){
+                newArray[i] = array[i];
+            }
+        }
+        array = newArray;
+        return oldVal;
     }
     protected void removeRange(int fromIndex, int toIndex) {
-        if(toIndex <= size()){
+        if(toIndex <= array.length){
             for(int i = fromIndex; i < toIndex; i++){
                 added--;
                 array[i] = null;
             }
             E[] newArray = (E[]) new Object[added];
             int count = 0; // Håller reda på vilket index den ska lägga in i den nya arrayen
-            for(int i = 0; i < size(); i++){
+            for(int i = 0; i < toIndex; i++){
                 if (array[i] != null){
                     newArray[count] = array[i];
                     count++;
@@ -152,30 +161,48 @@ public class MyArrayList<E> implements Serializable, Cloneable, Iterable<E>,
     // -- 6 --
     @Override
     public int indexOf(Object o) {
-        /* ska implementeras */
-        return -1; /* bara med för att Eclipse inte ska klaga */
+        for(int i = array.length; i >= 0; i--){
+            if(o == array[i]) {
+                return i;
+            }
+        }
+        return -1; // Om det inte finns
     }
     @Override
     public boolean remove(Object o) {
-        /* ska implementeras */
-        return false; /* bara med för att Eclipse inte ska klaga */
+        for(int i = 0; i < array.length; i++){
+            if(o == array[i]){
+                remove(i);
+                return true;
+            }
+        }
+        return false;
     }
     @Override
     public boolean contains(Object o) {
-        /* ska implementeras */
-        return false; /* bara med för att Eclipse inte ska klaga */
+        for(int i = 0; i < array.length; i++){
+            if(o == array[i]){
+                return true;
+            }
+        }
+        return false;
     }
     // -- 7 --
     @Override
     public Object clone() {
-        E[] arrayClone;
-        arrayClone = array;
-        return arrayClone; /* bara med för att Eclipse inte ska klaga */
+        MyArrayList<E> clone = new MyArrayList<E>(array.length);
+        for(int i = 0; i < size; i++){
+            clone.add(array[i]);
+        }
+        return clone; // En shallow kopia, alltså samma längd
     }
     @Override
     public Object[] toArray() {
-        /* ska implementeras */
-        return null; /* bara med för att Eclipse inte ska klaga */
+        E[] newArray = (E[]) new Object[size];
+        for(int i = 0; i < array.length; i++){
+             newArray[i] = array[i];
+        }
+        return newArray; /* bara med för att Eclipse inte ska klaga */
     }
     // --- Rör ej nedanstående kod -----------------------------------
     public MyArrayList(Collection<? extends E> c) {
