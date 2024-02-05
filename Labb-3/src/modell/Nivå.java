@@ -1,16 +1,25 @@
 package modell;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.Observable;
 
 // TODO: Gör så att klassen Nivå ärver Observable i paketet java.util.
-public class Nivå {
+public class Nivå extends Observable {
 
     // TODO: Lägg till tillståndsvariabler för att hålla reda på nivåns rum och
     // i vilket rum som användaren "är".
+    private Rum numRum;
+    private ArrayList<Rum> usrRum;
 
     public Nivå(Rum startrum, ArrayList<Rum> rum) {
-        // TODO: Kopiera in startrum och rum in i tillståndsvariablerna.
+    // TODO: Kopiera in startrum och rum in i tillståndsvariablerna.
+        this.numRum = startrum;
+        this.usrRum = rum;
 
+        if (!rum.contains(startrum)){
+            throw new InputMismatchException();
+        }
         // TODO: Kontrollera att startrum finns med i rum. Om inte, kasta
         // undantag med lämpligt felmeddelande.
 

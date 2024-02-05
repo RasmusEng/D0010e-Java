@@ -1,16 +1,19 @@
 import java.util.Observable;
+import java.util.Observer;
 
 import modell.Nivå;
 import vy.Målarduk;
 
+import javax.swing.*;
+
 // TODO: Klassen ska ärva klassen JFrame i standardbibliotekets paket 
 // javax.swing och implementera gränssnittet Observer i paketet java.util. 
-public class GUI {
+public class GUI extends JFrame implements Observer{
 
 	private Målarduk målarduk;
 
 	public GUI(Nivå enNivå) {
-
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		// TODO: Anropa metoden setDefaultCloseOperation med konstanten
 		// JFrame.EXIT_ON_CLOSE.
 

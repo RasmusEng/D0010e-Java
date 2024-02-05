@@ -5,25 +5,34 @@ import modell.Rum;
 import modell.Väderstreck;
 import verktyg.Punkt;
 import modell.Gång;
+
+import javax.swing.*;
 import java.awt.*;
 
+
+
 // TODO: Ändra nästa rad så att en Målarduk "är-en" JPanel.
-public class Målarduk {
+public class Målarduk extends JPanel{
 
     private final Nivå enNivå;
 
     public Målarduk(Nivå enNivå) {
         this.enNivå = enNivå;
         // TODO: Sätt bakgrundsfärgen på this till MARKFÄRG.
+        this.setBackground(Color.WHITE);
+        this.setFocusable(true);
         // TODO: Anropa metoden setFocusable på this och med argumentet true.
         // Detta behövs för att lyssnaren i programmet ska reagera.
     }
 
     // TODO: Lätt till @Override på metoden nedan.
+    @Override
     protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
         // TODO Lägg till ett anrop till paintComponent i omedelbara
         // överklassen (JPanel). Skicka med g som argument.
 
+        
         // TODO: Lägg till kod som ritar ut en grafisk vy av enNivå.
         //
         // För att underlätta finns hjälpmetoder som ska skrivas klara. Studera
