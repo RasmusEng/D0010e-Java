@@ -1,21 +1,19 @@
-import static modell.Väderstreck.*;
+package labb3;
+
+import static labb3.modell.Väderstreck.*;
 
 import java.awt.Color;
 import java.util.ArrayList;
 
-import modell.*;
+import labb3.modell.*;
 
 public class Huvudprogram {
+
+	private static Nivå nivå;
 
 	public static void main(String[] args) {
 
 		ArrayList<Rum> rum = new ArrayList<Rum>();
-
-		orginalRummen(rum);
-
-		Nivå nivå = new Nivå(rum.get(3), rum);
-		new GUI(nivå);
-
 		// Dessa rum och gångar morsvarar de i laborationsinstruktionen.
 
 		// TODO Skapa även andra uppsättningar rum/gångar för att kunna testköra
@@ -23,15 +21,6 @@ public class Huvudprogram {
 		// metoder här i klassen. Såna bör vara deklarerade static för att kunna
 		// anropas från main (som ju också är static).
 
-
-		// TODO: Skapa en nivå med argumenten rum.get(3) och rum.
-
-		// TODO: Skapa en instans av klassen GUI och skicka med nivån ovan som
-		// argument. Man kan ha en referensvariabel som refererar till
-		// GUI-instansen men det är är inte nödvändigt.
-	}
-
-	static void orginalRummen(ArrayList<Rum> rum){
 		rum.add(new Rum(Color.RED, 75, 75, 25, 25));
 		rum.add(new Rum(Color.BLUE, 75, 50, 50, 150));
 		rum.add(new Rum(Color.MAGENTA, 100, 50, 175, 100));
@@ -51,6 +40,17 @@ public class Huvudprogram {
 		Rum.kopplaIhop(rum.get(3), ÖSTER, rum.get(5), VÄSTER);
 		Rum.kopplaIhop(rum.get(3), SÖDER, rum.get(6), NORR);
 		Rum.kopplaIhop(rum.get(7), ÖSTER, rum.get(6), VÄSTER);
+
+		Nivå nivå1 = new Nivå(rum.get(3), rum);
+		nivå = nivå1;
+		new GUI(nivå1);
+
+
+		// TODO: Skapa en nivå med argumenten rum.get(3) och rum.
+
+		// TODO: Skapa en instans av klassen labb3.GUI och skicka med nivån ovan som
+		// argument. Man kan ha en referensvariabel som refererar till
+		// labb3.GUI-instansen men det är är inte nödvändigt.
 	}
 
 

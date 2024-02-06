@@ -1,4 +1,4 @@
-package verktyg;
+package labb3.verktyg;
 
 import java.awt.BasicStroke;
 import java.awt.Color;

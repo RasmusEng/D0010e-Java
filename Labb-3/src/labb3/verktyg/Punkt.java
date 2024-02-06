@@ -1,4 +1,4 @@
-package verktyg;
+package labb3.verktyg;
 
 /**
  * Icke muterbar klass för punkter.

@@ -1,3 +1,5 @@
+package labb3;
+
 import java.awt.Color;
 
 /**

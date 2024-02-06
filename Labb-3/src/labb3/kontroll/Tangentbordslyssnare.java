@@ -1,9 +1,9 @@
-package kontroll;
+package labb3.kontroll;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import modell.Nivå;
+import labb3.modell.Nivå;
 
 public class Tangentbordslyssnare implements KeyListener {
 	private Nivå enNivå;
@@ -18,7 +18,7 @@ public class Tangentbordslyssnare implements KeyListener {
 		// användaren tryckt på en tangent på tangentbordet. Metoden ska
 		// översätta tangenten till ett väderstreck och sen anropa hoppaÅt i
 		// enNivå med detta väderstreck. Här ska
-		//
+		System.out.println(e);
 		// w betyda "hoppa åt NORR",
 		// d betyda "hoppa åt ÖSTER",
 		// s betyda "hoppa åt SÖDER" och

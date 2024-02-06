@@ -1,4 +1,4 @@
-package modell;
+package labb3.modell;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -27,9 +27,14 @@ public class Nivå extends Observable {
         // fallet, kasta undantag med lämpligt felmeddelande.
     }
 
+    public Rum roomNum(){
+        return numRum;
+    }
     // TODO: Skriv en instansmetod som returnerar alla rummen. Denna behöver
     // Målarduk för att veta vilka rum som finns på nivån och som ska ritas ut.
-
+    public Rum curRoom(){
+        return this.numRum;
+    }
     // TODO Skriv en instansmetod som returnerar en referens till det rum som
     // användaren "är i".
 
