@@ -1,53 +1,55 @@
 package labb3.modell;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Observable;
 
-// TODO: Gör så att klassen Nivå ärver Observable i paketet java.util.
 public class Nivå extends Observable {
-
-    // TODO: Lägg till tillståndsvariabler för att hålla reda på nivåns rum och
-    // i vilket rum som användaren "är".
     private Rum numRum;
     private ArrayList<Rum> usrRum;
 
     public Nivå(Rum startrum, ArrayList<Rum> rum) {
-    // TODO: Kopiera in startrum och rum in i tillståndsvariablerna.
         this.numRum = startrum;
         this.usrRum = rum;
 
         if (!rum.contains(startrum)){
             throw new InputMismatchException();
         }
-        // TODO: Kontrollera att startrum finns med i rum. Om inte, kasta
-        // undantag med lämpligt felmeddelande.
 
-        // TODO: Kontrollera att inga rum överlappar varandra. Om det ändå är
-        // fallet, kasta undantag med lämpligt felmeddelande.
+        int count = 1;
+        for (Rum r: usrRum) {
+            Rectangle rec = new Rectangle(r.getPunkt().x(), r.getPunkt().y(), r.getBredd(), r.getHöjd());
+            for(int i = count; i < usrRum.size(); i++){
+               Rectangle rec2 = new Rectangle(usrRum.get(i).getPunkt().x(), usrRum.get(i).getPunkt().y(), usrRum.get(i).getBredd(), usrRum.get(i).getHöjd());
+               if(rec.intersects(rec2)){
+                   throw new IllegalArgumentException();
+               }
+           }
+            count++;
+        }
     }
 
-    public Rum roomNum(){
-        return numRum;
+    // instansmetod som returnerar alla rummen
+    public ArrayList<Rum> roomNum(){
+        return usrRum;
     }
-    // TODO: Skriv en instansmetod som returnerar alla rummen. Denna behöver
-    // Målarduk för att veta vilka rum som finns på nivån och som ska ritas ut.
+    // Getter för numRum
     public Rum curRoom(){
         return this.numRum;
     }
-    // TODO Skriv en instansmetod som returnerar en referens till det rum som
-    // användaren "är i".
 
-    // TODO: Skriv klar instansmetoden hoppaÅt nedan så att den ändrar det rum
-    // som användaren "är i" om det är möjligt genom att följa en gång från
-    // rummet och i riktning väderstreck.
-    //
-    // Om väderstreck inte är en riktning i vilken det finns en gång, så ändras
-    // inte rummet användaren "är i" (och inte heller kastas undantag). (Denna
-    // metod använder kontrolldelen av programmet för att begära ett hopp till
-    // angränsande rum efter att användaren tryckt på en tangent.)
-
+    // Denna kollar om en väg har målats till eller från nuvarande rummet
+    // Detta för att veta om man kan flytta till de nya rummet.
     public void hoppaÅt(Väderstreck väderstreck) {
-
+        if(curRoom().finnsUtgångÅt(väderstreck)){
+            if(numRum == numRum.gångenÅt(väderstreck).getRumFrån()){
+                numRum = numRum.gångenÅt(väderstreck).getRumTill();
+            }else {
+                numRum = numRum.gångenÅt(väderstreck).getRumFrån();
+            }
+            setChanged();
+            notifyObservers();
+        }
     }
 }

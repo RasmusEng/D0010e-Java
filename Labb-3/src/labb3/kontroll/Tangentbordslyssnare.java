@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import labb3.modell.Nivå;
+import labb3.modell.Väderstreck;
 
 public class Tangentbordslyssnare implements KeyListener {
 	private Nivå enNivå;
@@ -13,22 +14,29 @@ public class Tangentbordslyssnare implements KeyListener {
 	}
 
 	@Override
+		// Hämtar Knappkoden och flyttar åt specifikt håll.
 	public void keyPressed(KeyEvent e) {
-		// TODO: Skriv klar denna metod som automatiskt anropas så snart
-		// användaren tryckt på en tangent på tangentbordet. Metoden ska
-		// översätta tangenten till ett väderstreck och sen anropa hoppaÅt i
-		// enNivå med detta väderstreck. Här ska
-		System.out.println(e);
-		// w betyda "hoppa åt NORR",
-		// d betyda "hoppa åt ÖSTER",
-		// s betyda "hoppa åt SÖDER" och
-		// a betyda "hoppa åt VÄSTER".
+		int knapp = e.getKeyCode();
+		switch (knapp){
+			case 87: // W
+				enNivå.hoppaÅt(Väderstreck.NORR);
+				break;
+			case 65: // A
+				enNivå.hoppaÅt(Väderstreck.VÄSTER);
+				break;
+			case 83: // S
+				enNivå.hoppaÅt(Väderstreck.SÖDER);
+				break;
+			case 68: // D
+				enNivå.hoppaÅt(Väderstreck.ÖSTER);
+				break;
+			default:
+				break;
+		}
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// Används inte men måste implementeras eftersom keyTyped finns i
-		// gränssnittet KeyListener.
 	}
 
 	@Override

@@ -3,53 +3,55 @@ package labb3.modell;
 import labb3.verktyg.Punkt;
 
 import java.awt.Color;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
+@SuppressWarnings("NonAsciiCharacters")
 public class Rum {
 
 	// TODO: Lägg till tillståndsvariabler.
 	private Punkt punkt;
+	private Color golvfärg;
+	private int bredd;
+	private int höjd;
+	private Gång[] gångs = new Gång[Väderstreck.values().length]; // Kollar hur många enum element finns
 
 	public Rum(Color golvfärg, int bredd, int höjd, int övX, int övY) {
-		// TODO: Kopiera parametrarna in i tillståndsvariablerna. (övX,övY) är
-		// koordinaten för rummets övre vänstra hörn och lagras lämpligen som en
-		// instans av klassen Punkt i paketet labb3.verktyg.
 		punkt = new Punkt(övX, övY);
+		this.golvfärg = golvfärg;
+		this.bredd = bredd;
+		this.höjd = höjd;
 	}
 
-	// TODO: Skriv "getters", metoder som returnerar tillståndsvariablernas
-	// värden.
-
-	public int getX(){
-		return this.punkt.x();
+	// Getters
+	public Punkt getPunkt(){
+		return this.punkt;
 	}
-	public int getY(){
-		return this.punkt.y();
+	public Color getColor(){
+		return this.golvfärg;
 	}
-
-	// TODO: Skriv instansmetoden
-	//
-	// finnsUtgångÅt(Väderstreck väderstreck)
-	//
-	// som ska kontrollera om det från ett rum finns en utgång åt visst
-	// väderstreck.
-
-	// TODO: Skriv instansmetoden
-	//
-	// Gång gångenÅt(Väderstreck väderstreck) som
-	//
-	// returnerar den gång som leder från ett rum i riktning väderstreck. Om
-	// sådan gång saknas ska ett undantag kastas med lämpligt felmeddelande.
-
-	// TODO: Skrivklar metoden nedan som kopplar ihop två rum med en gång.
-
+	public int getBredd(){
+		return this.bredd;
+	}
+	public int getHöjd(){
+		return this.höjd;
+	}
+	// Kollar om det finns ett element i gång som stämmer överens med de givna väderstrecket
+	public boolean finnsUtgångÅt(Väderstreck väderstreck){
+		return gångs[väderstreck.index()] != null;
+	}
+	// Returnerar elementet om det finns ett gång ut specificrade väderstrecket.
+	public Gång gångenÅt(Väderstreck väderstreck){
+		if(gångs[väderstreck.index()] != null){
+			return gångs[väderstreck.index()];
+		}
+		throw new IllegalArgumentException();
+	}
+	// kopplar ihop två rum med en gång.
 	public static void kopplaIhop(Rum från, Väderstreck riktningUtUrFrån,
 			Rum till, Väderstreck riktningInITill) {
-	}
-
-
-	public static void main(String[] args){
-		 Rum rom = new Rum(Color.RED, 400, 200, 2, 3);
-		 System.out.println(rom.getX());
-		 System.out.println(rom.getY());
+		Gång gång = new Gång(från, riktningUtUrFrån, till, riktningInITill);
+		från.gångs[riktningUtUrFrån.index()] = gång;
+		till.gångs[riktningInITill.index()] = gång;
 	}
 }
