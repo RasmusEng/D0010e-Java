@@ -17,16 +17,15 @@ public class Nivå extends Observable {
             throw new InputMismatchException();
         }
 
-        int count = 1;
-        for (Rum r: usrRum) {
-            Rectangle rec = new Rectangle(r.getPunkt().x(), r.getPunkt().y(), r.getBredd(), r.getHöjd());
-            for(int i = count; i < usrRum.size(); i++){
+        for(int j = 0; j < usrRum.size(); j++){
+            Rectangle rec = new Rectangle(usrRum.get(j).getPunkt().x(), usrRum.get(j).getPunkt().y(), usrRum.get(j).getBredd(), usrRum.get(j).getHöjd());
+            for(int i = j; i < usrRum.size(); i++){
                Rectangle rec2 = new Rectangle(usrRum.get(i).getPunkt().x(), usrRum.get(i).getPunkt().y(), usrRum.get(i).getBredd(), usrRum.get(i).getHöjd());
                if(rec.intersects(rec2)){
                    throw new IllegalArgumentException();
                }
            }
-            count++;
+
         }
     }
 
