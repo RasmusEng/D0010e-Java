@@ -19,7 +19,7 @@ public class Nivå extends Observable {
 
         for(int j = 0; j < usrRum.size(); j++){
             Rectangle rec = new Rectangle(usrRum.get(j).getPunkt().x(), usrRum.get(j).getPunkt().y(), usrRum.get(j).getBredd(), usrRum.get(j).getHöjd());
-            for(int i = j; i < usrRum.size(); i++){
+            for(int i = j+1; i < usrRum.size(); i++){
                Rectangle rec2 = new Rectangle(usrRum.get(i).getPunkt().x(), usrRum.get(i).getPunkt().y(), usrRum.get(i).getBredd(), usrRum.get(i).getHöjd());
                if(rec.intersects(rec2)){
                    throw new IllegalArgumentException();
@@ -27,6 +27,7 @@ public class Nivå extends Observable {
            }
 
         }
+
     }
 
     // instansmetod som returnerar alla rummen
