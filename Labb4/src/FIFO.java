@@ -2,8 +2,8 @@ import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
 public class FIFO implements Queue {
-    ArrayList<Object> queue = new ArrayList<Object>();
-    int maxSize = 0;
+    private ArrayList<Object> queue = new ArrayList<Object>();
+    private int maxSize = 0;
     @Override
     public void add(Object o) {
         queue.add(o);
