@@ -8,7 +8,7 @@ public class FIFO implements Queue {
     public void add(Object o) {
         queue.add(o);
         if(queue.size() >= maxSize){
-            maxSize++;
+            maxSize = queue.size();
         }
     }
 
