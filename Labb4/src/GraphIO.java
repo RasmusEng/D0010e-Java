@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /**
@@ -18,17 +19,15 @@ public class GraphIO{
             }
 
             // Använder detta för att inte kasta en IOException när scanner.nextline
-            try{
-                while(scanner.hasNextInt()){
-                    g.addEdge(scanner.nextInt(),scanner.nextInt(),scanner.nextInt());
-                }
-            } finally {
-
-                scanner.close();
+            while(scanner.hasNextInt()){
+                g.addEdge(scanner.nextInt(),scanner.nextInt(),scanner.nextInt());
             }
 
+            scanner.close();
         }catch (FileNotFoundException e){
             throw new IOException();
+        }catch (NoSuchElementException e){
+            System.out.println("Fel formatering i filen");
         }
     }
 }
