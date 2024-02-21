@@ -19,15 +19,19 @@ public class GraphIO{
             }
 
             // Använder detta för att inte kasta en IOException när scanner.nextline
-            while(scanner.hasNextInt()){
-                g.addEdge(scanner.nextInt(),scanner.nextInt(),scanner.nextInt());
+            try{
+                while(scanner.hasNextInt()){
+                    g.addEdge(scanner.nextInt(),scanner.nextInt(),scanner.nextInt());
+                }
+            }catch (NoSuchElementException e){
+                // Används inte
+            }
+            finally {
+                scanner.close();
             }
 
-            scanner.close();
         }catch (FileNotFoundException e){
             throw new IOException();
-        }catch (NoSuchElementException e){
-            System.out.println("Fel formatering i filen");
         }
     }
 }
