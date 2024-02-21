@@ -18,13 +18,10 @@ public class GraphIO{
             }
 
             // Använder detta för att inte kasta en IOException när scanner.nextline
-            try{
-                while(scanner.hasNextLine()){
-                    g.addEdge(scanner.nextInt(),scanner.nextInt(),scanner.nextInt());
-                }
-            }catch(Exception e){
-                scanner.close();
+            while(scanner.hasNextInt()){
+                g.addEdge(scanner.nextInt(),scanner.nextInt(),scanner.nextInt());
             }
+            scanner.close();
 
         }catch (FileNotFoundException e){
             throw new IOException();
