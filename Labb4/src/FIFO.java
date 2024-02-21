@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
+/**
+ * @author Rasmus Engström
+ */
 public class FIFO implements Queue {
     private ArrayList<Object> queue = new ArrayList<Object>();
     private int maxSize = 0;

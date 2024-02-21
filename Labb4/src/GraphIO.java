@@ -3,6 +3,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * @author Rasmus Engström
+ */
 public class GraphIO{
 
     static public void readFile(Graph g, String fileName) throws IOException {
@@ -14,6 +17,7 @@ public class GraphIO{
                 g.addNode(scanner.nextInt(), scanner.nextInt(), scanner.nextInt());
             }
 
+            // Använder detta för att inte kasta en IOException när scanner.nextline
             try{
                 while(scanner.hasNextLine()){
                     g.addEdge(scanner.nextInt(),scanner.nextInt(),scanner.nextInt());
@@ -25,8 +29,5 @@ public class GraphIO{
         }catch (FileNotFoundException e){
             throw new IOException();
         }
-
-
     }
-
 }
